@@ -38,7 +38,7 @@ pipeline {
       
 stage('Docker Image') {
                    steps {
-                       sh 'docker build -t abderrahmenamri-5nids2-g10 .'
+                       sh 'sudo docker build -t abderrahmenamri-5nids2-g10 .'
                    }
        }
 

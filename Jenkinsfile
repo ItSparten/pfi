@@ -38,7 +38,8 @@ pipeline {
       
 stage('Docker Image') {
                    steps {
-                       sh 'sudo docker build -t abderrahmenamri-5nids2-g10 .'
+                       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                       sh 'docker build -t abderrahmenamri-5nids2-g10 .'
                    }
        }
 

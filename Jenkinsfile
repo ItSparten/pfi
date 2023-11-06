@@ -56,12 +56,7 @@ pipeline {
                         sh 'mvn -Dtest=Junit test'
                     }
                 }
-         stage('Grafana/prometheus') {
-            steps {
-                sh 'docker start 8f7df022baac'
-                sh 'docker start 26e6338b70a7'
-            }
-         }
+         
         
     }
 }

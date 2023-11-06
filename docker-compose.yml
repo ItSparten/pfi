@@ -16,7 +16,7 @@ services:
 
   departement_app:
     build: ./
-    image: moetez
+    image: aa
     restart: unless-stopped
     ports:
       - 8089:8089

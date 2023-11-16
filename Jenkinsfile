@@ -1,10 +1,11 @@
 pipeline {
     agent any
 
-    environment {
+   */ environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerid')
         DOCKER_IMAGE_TAG = '1.0.0'  // Define the Docker image tag here
     }
+/*
 
     stages {
         stage('Récupération du code') {
@@ -12,8 +13,26 @@ pipeline {
                 checkout scm
             }
         }
+stage('Dependency-Check') {
+            steps {
+                script {
+                    // Run OWASP Dependency-Check
+                    def scanResult = sh(script: 'dependency-check.sh -f HTML -o dependency-check-report.html', returnStatus: true)
 
-        stage('Maven Build and SonarQube Scan') {
+                    // Check if the scan failed or if vulnerabilities were found
+                    if (scanResult != 0) {
+                        error "Dependency-Check failed. Check the report for vulnerabilities."
+                    } else {
+                        echo "Dependency-Check passed. No vulnerabilities found."
+                    }
+
+                    // Archive the Dependency-Check report for future reference
+                    archiveArtifacts artifacts: 'dependency-check-report.html'
+                }
+            }
+        
+
+     */   stage('Maven Build and SonarQube Scan') {
             steps {
                 sh 'mvn clean compile'
                 sh 'mvn sonar:sonar -Dsonar.login=squ_e050fbc3eb84d4965c2a274608a0c587b00b7154'
@@ -25,6 +44,7 @@ pipeline {
                 sh 'mvn -Dtest=mockito test'
             }
         }
+
 
         stage('Maven Deploy') {
             steps {
@@ -62,6 +82,7 @@ pipeline {
                 sh 'docker start 26e6338b70a7'
             }
          }
+/*
         
     }
 }

@@ -10,7 +10,7 @@ pipeline {
         }
 stage('trivy') {
             steps {
-                    sh 'trivy sonarqube:latest'
+                    sh 'trivy image sonarqube'
                 
             }
         }
